@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.mes.dao.admin.BugMapper">
+  <resultMap id="BaseResultMap" type="com.zx.mes.model.admin.Bug">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="CREATEDATETIME" jdbcType="TIMESTAMP" property="createdatetime" />
+    <result column="MODIFYDATETIME" jdbcType="TIMESTAMP" property="modifydatetime" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="NOTE" jdbcType="VARCHAR" property="note" />
+    <result column="BUGTYPE_ID" jdbcType="VARCHAR" property="bugtypeId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, CREATEDATETIME, MODIFYDATETIME, NAME, NOTE, BUGTYPE_ID
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbug
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tbug
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zx.mes.model.admin.Bug">
+    insert into tbug (ID, CREATEDATETIME, MODIFYDATETIME, 
+      NAME, NOTE, BUGTYPE_ID
+      )
+    values (#{id,jdbcType=VARCHAR}, #{createdatetime,jdbcType=TIMESTAMP}, #{modifydatetime,jdbcType=TIMESTAMP}, 
+      #{name,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR}, #{bugtypeId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.mes.model.admin.Bug">
+    insert into tbug
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="createdatetime != null">
+        CREATEDATETIME,
+      </if>
+      <if test="modifydatetime != null">
+        MODIFYDATETIME,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="note != null">
+        NOTE,
+      </if>
+      <if test="bugtypeId != null">
+        BUGTYPE_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createdatetime != null">
+        #{createdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifydatetime != null">
+        #{modifydatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="bugtypeId != null">
+        #{bugtypeId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.mes.model.admin.Bug">
+    update tbug
+    <set>
+      <if test="createdatetime != null">
+        CREATEDATETIME = #{createdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifydatetime != null">
+        MODIFYDATETIME = #{modifydatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null">
+        NOTE = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="bugtypeId != null">
+        BUGTYPE_ID = #{bugtypeId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.mes.model.admin.Bug">
+    update tbug
+    set CREATEDATETIME = #{createdatetime,jdbcType=TIMESTAMP},
+      MODIFYDATETIME = #{modifydatetime,jdbcType=TIMESTAMP},
+      NAME = #{name,jdbcType=VARCHAR},
+      NOTE = #{note,jdbcType=VARCHAR},
+      BUGTYPE_ID = #{bugtypeId,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <!--新写的sql-->
+  <select id="getAll" parameterType="com.zx.mes.model.admin.Bug" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tbug
+    where 1=1
+    <if test="name !=null and name !=''">
+      and name like #{name,jdbcType=VARCHAR}
+    </if>
+  </select>
+</mapper>
