@@ -135,4 +135,28 @@
       and name like #{name,jdbcType=VARCHAR}
     </if>
   </select>
+  <resultMap id="resourceResultMap" type="com.zx.mes.model.admin.Resource" extends="BaseResultMap">
+    <association property="resourcetype" javaType="com.zx.mes.model.admin.ResourceType">
+      <id column="id" property="id"/>
+      <result column="name" property="name"/>
+    </association>
+  </resultMap>
+  <select id="getResourceWithType" parameterType="com.zx.mes.model.admin.Resource" resultMap="resourceResultMap">
+      SELECT DISTINCT tresource.ID,
+      tresource.ICON,
+      tresource.NAME,
+      tresource.REMARK,
+      tresource.URL,
+      tresource.SEQ,
+      tresource.PID,
+      tresource.TRESOURCETYPE_ID resourcetype_id,
+      tresourcetype.ID resourcetype_id,
+      tresourcetype.NAME resourcetype_name
+      FROM tresource  JOIN tresourcetype ON tresource.TRESOURCETYPE_ID = tresourcetype.ID
+      where 1=1
+      <if test="tresourcetypeId !=null and tresourcetypeId !=''">
+        and tresourcetype.ID =#{tresourcetypeId,jdbcType=VARCHAR}
+      </if>
+      order by tresource.SEQ
+  </select>
 </mapper>

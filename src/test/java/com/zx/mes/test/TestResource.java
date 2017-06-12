@@ -27,4 +27,10 @@ public class TestResource {
 
         logger.info(JSON.toJSONStringWithDateFormat(resourceMapper.getAll(resource),""));
     }
+    @Test
+    public void test2(){
+        Resource resource=new Resource();
+        resource.setTresourcetypeId("0");
+        logger.info(JSON.toJSONStringWithDateFormat(resourceMapper.getResourceWithType(resource),"yyyy-MM-dd HH:mm:ss"));
+    }
 }

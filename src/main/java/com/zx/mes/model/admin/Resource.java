@@ -1,5 +1,7 @@
 package com.zx.mes.model.admin;
 
+
+
 public class Resource {
     private String id;
 
@@ -14,6 +16,27 @@ public class Resource {
     private String url;
 
     private String pid;
+
+    private ResourceType resourcetype;
+
+    public ResourceType getResourcetype() {
+        return resourcetype;
+    }
+
+    public void setResourcetype(ResourceType resourcetype) {
+        this.resourcetype = resourcetype;
+    }
+
+    private String userId;
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
 
     private String tresourcetypeId;
 

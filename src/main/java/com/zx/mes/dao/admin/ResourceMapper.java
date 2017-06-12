@@ -20,4 +20,8 @@ public interface ResourceMapper {
     int updateByPrimaryKey(Resource record);
 
     List<Resource> getAll(Resource resource);
+
+    List<Resource> getResourceWithType(Resource resource);
+
+    List<Resource> getResourceWithTypeUser(Resource resource);
 }
